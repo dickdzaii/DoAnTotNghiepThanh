@@ -1,0 +1,124 @@
+
+                <!--shop banner area start-->
+                <div class="shop_banner_area mb-30">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="shop_banner_thumb">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--shop banner area end-->
+                <!--shop toolbar start-->
+                <div class="shop_toolbar_wrapper">
+                    <div class="shop_toolbar_btn">
+                        <button data-role="grid_4" type="button"  class="active btn-grid-4" data-toggle="tooltip" title="4"></button>
+                        <button data-role="grid_3" type="button" class=" btn-grid-3" data-toggle="tooltip" title="3"></button>
+                        <button data-role="grid_list" type="button"  class="btn-list" data-toggle="tooltip" title="List"></button>
+                    </div>
+                    <div >
+                        <form >
+                            <select >
+
+                                <option selected value="1">Sort by average rating</option>
+                                <option  value="2">Sort by popularity</option>
+                                <option value="3">Sort by newness</option>
+                                <option value="4">Sort by price: low to high</option>
+                                <option value="5">Sort by price: high to low</option>
+                                <option value="6">Product Name: Z</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div class="page_amount">
+                        <p>Có {{tongsl}} sản phẩm</p>
+                    </div>
+                </div>
+                 <!--shop toolbar end-->
+                 <div class="row shop_wrapper">
+                     <ng-container *ngFor="let sploai of sptheoloai">
+                    <div class="col-lg-3 col-md-4 col-12 ">
+                        <article class="single_product">
+                            <figure>
+                                <div class="product_thumb">
+                                    <a class="primary_img" href="shop/chi-tiet/{{sploai.link}}"><img src="assets/img/product/{{sploai.anh}}" alt=""></a>
+                                    <a class="secondary_img"href="shop/chi-tiet/{{sploai.link}}"><img src="assets/img/product/product2.jpg" alt=""></a>
+                                    <div class="label_product">
+                                        <span class="label_new">Emarket</span>
+                                    </div>
+                                    <div class="quick_button">
+                                        <a href="#" data-toggle="modal" data-target="#modal_box"  title="quick view"><i class="icon-eye"></i></a>
+                                    </div>
+                                </div>
+                                <div class="product_content grid_content">
+                                    <div class="product_content_inner">
+                                        <h4 class="product_name"><a href="shop/chi-tiet/{{sploai.link}}">{{sploai.tenSanPham}}</a></h4>
+                                        <div class="product_rating">
+                                           <ul>
+                                               <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                               <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                               <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                               <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                               <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                           </ul>
+                                        </div>
+                                        <div class="price_box"> 
+                                            
+                                            <span class="current_price">{{sploai.giahientai.gia | currency:'VND':true:'1.0-2'}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="action_links">
+                                         <ul>
+                                            <li class="add_to_cart"><a (click)="addToCart(sploai)" title="Add to cart">Add to cart</a></li>
+                                            <li class="wishlist"><a (click)="addToWishlist(sploai)"  title="Add to Wishlist"><i class="icon-heart"></i></a></li>
+                                            <li class="compare"><a href="#" title="Add to Compare"><i class="icon-rotate-cw"></i></a></li> 
+                                        </ul>
+                                    </div> 
+                                </div>
+                                <div class="product_content list_content">
+                                    <div class="left_caption">
+                                        <h4 class="product_name"><a [routerlink]="['chi-tiet/',sploai.link]">{{sploai.tenSanPham}}</a></h4>
+                                        <div class="product_rating">
+                                           <ul>
+                                               <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                               <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                               <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                               <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                               <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                           </ul>
+                                        </div>
+                                        <div class="price_box"> 
+                                            <span class="old_price">$320.00</span> 
+                                            <span class="current_price">{{sploai.giahientai.gia | currency:'VND':true:'1.0-2'}}</span>
+                                        </div>
+                                        <div class="product_desc">
+                                            <p>{{sploai.moTa}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="right_caption">
+                                        <p class="text_available">Tình trạng: <span *ngIf="sploai.kho.soLuongCon!=0">Còn hàng</span>
+                                            <span *ngIf="sploai.kho.soLuongCon==0">Hết hàng</span>
+                                        </p>
+                                        <div class="action_links">
+                                            <ul> 
+                                                <li class="add_to_cart"><a (click)="addToCart(sploai)" title="Add to cart">Thêm vào giỏ hàng</a></li>
+                                                <li class="wishlist"><a href="wishlist.html" title="Add to Wishlist"><i class="icon-heart"></i>  Add to Wishlist</a></li>
+                                                <li class="compare"><a href="#" title="compare"><i class="icon-rotate-cw"></i>Add to Compare</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </figure>
+                        </article>
+                    </div>
+                    </ng-container>
+                </div>
+
+                <div class="shop_toolbar t_bottom">
+                    <div class="pagination">
+                        <ngb-pagination [collectionSize]="tongsl" [pageSize]="size" [(page)]="index" [maxSize]="10" [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+                    </div>
+                </div>
+                <!--shop toolbar end-->
+                <!--shop wrapper end-->
+

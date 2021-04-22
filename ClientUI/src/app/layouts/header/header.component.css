@@ -1,0 +1,40 @@
+header{
+    background-color:blue;
+}
+.tkhover ul li:hover > ul, .tkhover ul li.focus > ul{
+    opacity:1;
+  }
+
+  .tkhover ul ul{
+   transition:all 0.3s ease 0s;
+   opacity:0;
+  }
+  .sub-menu-account a:hover {background-color: #ddd;}
+
+.tkhover:hover .sub-menu-account {display: block;}
+
+
+
+  .sub-menu-account {
+    display: none;
+    position: absolute;
+    background-color:white;
+    max-width: 170px;
+    
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .sub-menu-account a {
+    color: black;
+    padding: 12px;
+    text-decoration: none;
+    display: block;
+    max-height: 60px;
+  }
+  .account_submenu{
+    color: black;
+  }
+  .account_submenu:hover{
+    color:#C70909;
+  }

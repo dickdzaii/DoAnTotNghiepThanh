@@ -1,0 +1,117 @@
+<!--shop toolbar end-->
+<div class="row shop_wrapper">
+
+    <div class="col-lg-12 col-md-12 col-12 ">
+
+        <article class="single_product">
+            <figure>
+                <div class="product_tab_btn">
+                    <ul class="nav" role="tablist">
+                        <li>
+                            <a class="active" data-toggle="tab" href="#All" role="tab" aria-controls="All"
+                                aria-selected="true">
+                                Tất cả
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#Confirm" role="tab" aria-controls="Confirm"
+                                aria-selected="false">
+                                Chờ xác nhận
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#Take" role="tab" aria-controls="Take" aria-selected="false">
+                                Chờ lấy hàng
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#Ride" role="tab" aria-controls="Ride" aria-selected="false">
+                                Đang giao
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#Rode" role="tab" aria-controls="Rode" aria-selected="false">
+                                Đã giao
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#Canceled" role="tab" aria-controls="Canceled"
+                                aria-selected="false">
+                                Đã hủy/ đổi trả
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <br>
+            </figure>
+        </article>
+
+        <article class="single_product" *ngFor="let dh of dsdonhang">
+            <figure>
+                <div class=" list_content">
+                    <div class="col-sm-11">
+                        <h4 class="product_name">Shop: <a>Emarket</a>
+
+                            <ng-container>
+                                <div style="float: right;">
+                                    <span style="font-weight: normal;"> [{{dh.diachinhanhang.tthuyen.name}},
+                                        {{dh.diachinhanhang.tttinh.name}}]</span>
+                                    <span *ngIf="dh.trangThai==0"> Chờ xác nhận</span>
+                                    <span *ngIf="dh.trangThai==1"> Chờ lấy hàng</span>
+                                    <span *ngIf="dh.trangThai==2"> Đã đóng gói</span>
+                                    <span *ngIf="dh.trangThai==3"> Đang giao hàng</span>
+                                    <span *ngIf="dh.trangThai==4"> Đã nhận hàng</span>
+                                    <span *ngIf="dh.trangThai==5"> Đã thanh toán</span>
+                                    <span *ngIf="dh.trangThai==6"> Đã hủy</span>
+                                    <span *ngIf="dh.trangThai==7"> Đã trả hàng</span>
+                                </div>
+                            </ng-container>
+                        </h4>
+                        <div>
+                            <ng-container *ngFor="let ct of dh.chitiet">
+                                <div>
+                                    <div><img src="assets/img/product/{{ct.anh}}" style="width:50px;height:50px;"
+                                            alt="{{ct.tenSanPham}}"> &nbsp;
+                                        <span> <a style="color: rgb(199, 9, 9);font-size: 20px;"
+                                                href="shop/chi-tiet/{{ct.link}}">{{ct.tenSanPham}} </a>
+                                            <span style="float: right;">{{ct.soLuong}} x
+                                                {{ct.donGia|currency:'VND'}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                            </ng-container>
+
+                        </div>
+                        <div>
+
+                            Tổng tiền:<span class="current_price"
+                                style="font-weight:bold;color:rgb(199, 9, 9);font-size: 16px;">
+                                {{dh.tonggiatri|currency:'VND'}}</span>
+                            <span style="float: right;"><a href="customer/orders/{{dh.maDH}}">Xem chi tiết đơn
+                                    hàng</a>&nbsp; &nbsp;<a href="" style="color: rgb(199, 9, 9)">Mua lần nữa</a>&nbsp; &nbsp;
+                                <span *ngIf="dh.trangThai==0"><a (click)="huyDon(dh.maDH)">Hủy đơn</a></span>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </figure>
+        </article>
+    </div>
+    <div class="shop_toolbar t_bottom" style="float: right;">
+        <ngb-pagination [collectionSize]="totalItems" [pageSize]="10" [(page)]="index" [maxSize]="10" [rotate]="true"
+            (pageChange)="loadPage($event)"></ngb-pagination>
+        <div class="pagination">
+        </div>
+    </div>
+</div>
+
+
+
+<!--shop toolbar end-->
+<!--shop wrapper end-->

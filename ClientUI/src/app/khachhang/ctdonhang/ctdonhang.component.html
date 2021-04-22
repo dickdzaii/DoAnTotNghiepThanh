@@ -1,0 +1,57 @@
+<!--shop toolbar end-->
+<div class="row shop_wrapper">
+
+    <div class="col-lg-12 col-md-12 col-12 ">
+        <article class="single_product">
+            <figure>
+                <div class=" list_content">
+                    <div class="col-sm-11">
+                        <span><a onclick="window.history.back();"> < Quay lại</a></span><h4 class="product_name"> 
+                            <ng-container style="float: right;"> ID: {{donhang.maDH}}|
+                            <span *ngIf="donhang.trangThai==0"> Chờ xác nhận</span>
+                            <span *ngIf="donhang.trangThai==1"> Chờ lấy hàng</span>
+                            <span *ngIf="donhang.trangThai==2"> Đã đóng gói</span>
+                            <span *ngIf="donhang.trangThai==3"> Đang giao hàng</span>
+                            <span *ngIf="donhang.trangThai==4"> Đã nhận hàng</span>
+                            <span *ngIf="donhang.trangThai==5"> Đã thanh toán</span>
+                            <span *ngIf="donhang.trangThai==6"> Đã hủy</span>
+                            <span *ngIf="donhang.trangThai==7"> Đã trả hàng</span>
+                        </ng-container>
+                        </h4>
+                        <div>
+                            <ng-container *ngFor="let ct of donhang.chitiet">
+                                <div>
+                                    <div><img src="assets/img/product/{{ct.anh}}" style="width:50px;height:50px;"
+                                            alt="{{ct.tenSanPham}}"> &nbsp;
+                                        <span> <a style="color: rgb(199, 9, 9);font-size: 20px;"
+                                                href="shop/chi-tiet/{{ct.link}}">{{ct.tenSanPham}} </a>
+                                            <span style="float: right;">{{ct.soLuong}} x
+                                            {{ct.donGia|currency:'VND'}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <br>
+                                <hr>
+                            </ng-container>
+
+                        </div>
+                        <div >
+
+                            Tổng tiền:<span class="current_price"> {{donhang.tonggiatri|currency:'VND'}}</span>
+                            <span style="float: right;"><a href="customer/orders/{{donhang.maDH}}">Xem chi tiết đơn hàng</a>&nbsp; &nbsp;<a href=""
+                                    style="color: rgb(199, 9, 9)">Mua lần nữa</a></span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </figure>
+        </article>
+    </div>
+
+</div>
+
+
+
+<!--shop toolbar end-->
+<!--shop wrapper end-->

@@ -1,0 +1,50 @@
+
+ <!--shop toolbar end-->
+ <div class="row shop_wrapper">
+    
+    <div class="col-lg-12 col-md-12 col-12 ">
+       
+        <article class="single_product">
+            <figure>
+                <h3 class="product_content_inner">Profile của tôi</h3>
+              <div style="display: flex;justify-content: center;">
+                <table  class="table" *ngIf="tg" style="max-width:80%">
+                  <tbody>
+                      <tr>
+                          <td><label for="" style="float: right;">Tên đăng nhập:</label></td>
+                          <td>{{tg.tk.tk}}</td>
+                      </tr>
+                     <tr>
+                         <td><label for="" style="float: right;">Email:</label></td>
+                      <td><input type="text" class="form-control" [value]="tg.tk.email"></td>
+                    </tr> 
+                    <tr>
+                        <td><label for="" style="float: right;">Số điện thoại:</label></td>
+                     <td><input type="text" class="form-control" [value]="tg.sdt"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="" style="float: right;">ngày sinh:</label></td>
+                     <td><input type="text" class="form-control" [value]="tg.ngaySinh"></td>
+                    </tr>
+
+                  </tbody>
+               </table>
+               &nbsp;&nbsp;&nbsp;&nbsp;
+               <div>
+                   <img src="assets/img/profile/64572.png" style="width:100px;height:100px" alt="">
+                   <div><button class="btn btn-sm">Thay đổi ảnh</button></div>
+               </div>
+               
+            </div>
+           <div class="product_content_inner"><button class="btn" style="background-color: #C70909;color:white">Lưu</button></div>
+            </figure>
+        </article>
+    </div>
+   
+</div>
+
+
+
+<!--shop toolbar end-->
+<!--shop wrapper end-->
+

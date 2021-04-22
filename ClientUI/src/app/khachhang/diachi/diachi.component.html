@@ -1,0 +1,128 @@
+<!--shop toolbar end-->
+<div class="row shop_wrapper">
+
+  <div class="col-lg-12 col-md-12 col-12 ">
+
+    <article class="single_product">
+      <figure>
+        <h3 class="product_content_inner">Địa chỉ của tôi <button class="btn btn-info" (click)="formThemDiaChi()"
+            style="float:right;">+ Thêm địa chỉ mới</button></h3>
+
+
+        <table class="table">
+          <tr *ngFor="let t of dsdiachi">
+            <td><label style="float: right;" for=""> Số điện thoại:</label></td>
+            <td>
+              {{t.soDienThoai}}
+
+            </td>
+            <td><label style="float: right;" for=""> Địa chỉ</label></td>
+            <td>
+              <p>{{t.chiTiet}}</p>
+
+              <p>{{t.ttxa.type}} {{t.ttxa.name}}</p>
+              <p>{{t.tthuyen.type}} {{t.tthuyen.name}} </p>
+              <p>{{t.tttinh.type}} {{t.tttinh.name}}
+              </p>
+
+            </td>
+            <td>
+              <button *ngIf="t.main==1" class="btn btn-primary btn-default btn-sm"
+                style="cursor: default;background-color: rgb(255, 255, 255);color:black;">Mặc định</button>
+              <button *ngIf="t.main==1" class="btn btn-primary btn-sm"
+                style="cursor: default;background-color: rgb(24, 153, 34);">Địa chỉ nhận hàng</button>
+            </td>
+            <td>
+              <p><a (click)="fromCapNhatDiaChi(t.maDiaChi)"><u>Sửa</u></a>&nbsp;&nbsp;&nbsp;<a
+                  (click)="xoaDiaChi(t.maDiaChi)"><u> Xóa</u></a></p>
+              <button *ngIf="t.main!=1" (click)="thietLapDiaChi(t.maDiaChi)" class="btn btn-primary">Thiết lập mặc
+                định</button>
+
+            </td>
+          </tr>
+        </table>
+      </figure>
+    </article>
+  </div>
+
+</div>
+
+<div id="DiaChiModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg full-height-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 *ngIf="isCreate" class="modal-title">Thêm địa chỉ mới</h4>
+        <h4 *ngIf="!isCreate" class="modal-title">Sửa thông tin địa chỉ</h4>
+      </div>
+      <form *ngIf="doneSetupForm" [formGroup]="formdata" (ngSubmit)="onSubmit(formdata.value)" class="form-horizontal ">
+        <div class="modal-body ">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>
+                  <label class="control-label no-padding-right"> Tỉnh/Thành Phố (<span
+                      style="color: red;">*</span>)</label>
+                  <select class="form-control" formControlName="tinh" id=""
+                    (change)="gethuyenbytinh($event.target.value)">
+                    <option *ngFor="let pv of dstinh" [value]="pv.id">{{pv.name}}</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="control-label no-padding-right"> Huyện (<span style="color: red;">*</span>)</label>
+                  <select class="form-control" formControlName="huyen" (change)="getxabyhuyen($event.target.value)"
+                    id="">
+                    <option *ngIf="diachi" [value]="diachi.huyen">{{diachi.tthuyen.name}}</option>
+                    <option *ngFor="let dt of dshuyen" [value]="dt.id">{{dt.name}}</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="control-label no-padding-right"> Xã (<span style="color: red;">*</span>)</label>
+                  <select formControlName="xa" class="form-control" id="">
+                    <option *ngIf="diachi" [value]="diachi.xa">{{diachi.ttxa.name}}</option>
+                    <option *ngFor="let wd of dsxa" [value]="wd.id">{{wd.name}}</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="control-label no-padding-right"> Địa chỉ chi tiết </label>
+                  <input type="text" placeholder="Địa chỉ chi tiết" class="form-control" formControlName="chitiet" />
+
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="control-label no-padding-right"> Số điện thoại (<span
+                      style="color: red;">*</span>)</label>
+                  <input type="text" placeholder="Số điện thoại" class="form-control" formControlName="sdt" />
+                  <div *ngIf="submitted && f.sdt.errors" class="invalid-feedback">
+                    <div *ngIf="f.sdt.errors.required">Vui lòng nhập số điện thoại</div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="reset" class="btn btn-default btn-sm" (click)="reset()">
+            <i class="fa fa-bell"></i> Làm mới
+          </button>
+          <button type="submit" class="btn btn-success btn-sm btn-submit">
+            <i class="fa fa-save"></i> Đồng ý
+          </button>
+          <button type="button" class="btn btn-default btn-sm" (click)="closeModal()">
+            <i class="fa fa-times"></i> Đóng lại
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--shop toolbar end-->
+<!--shop wrapper end-->

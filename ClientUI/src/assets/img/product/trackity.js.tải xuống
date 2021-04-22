@@ -1,0 +1,178 @@
+(function() {
+  var DOMAIN = window.trackity_domain || "trackity.tiki.vn",
+    PATH = "https://" + DOMAIN.replace(/[/]*$/, "") + "/tracking";
+
+  var getReferrer = function() {
+    var referrer = "";
+
+    try {
+      referrer = window.top.document.referrer;
+    } catch (e) {
+      if (window.parent) {
+        try {
+          referrer = window.top.document.referrer;
+        } catch (e) {
+          referrer = "";
+        }
+      }
+    }
+
+    if (referrer == "") {
+      referrer = window.location.href;
+    }
+
+    return referrer;
+  };
+
+  var _generateCookie = function() {
+    function tmp() {
+      return Math.floor(65536 * (1 + Math.random()))
+        .toString(16)
+        .substring(1);
+    }
+
+    return (
+      tmp() +
+      tmp() +
+      "-" +
+      tmp() +
+      "-" +
+      tmp() +
+      "-" +
+      tmp() +
+      "-" +
+      tmp() +
+      tmp() +
+      tmp()
+    );
+  };
+
+  var _setCookie = function(cookieName, expiry, cookieValue) {
+    var _date = new Date();
+    _date.setDate(_date.getDate() + expiry);
+    var host = window.location.hostname,
+      host_arr = host.split(".");
+
+    (4 == host_arr.length &&
+      host_arr[0] >= 0 &&
+      host_arr[0] <= 255 &&
+      host_arr[1] >= 0 &&
+      host_arr[1] <= 255 &&
+      host_arr[2] >= 0 &&
+      host_arr[2] <= 255 &&
+      host_arr[3] >= 0 &&
+      host_arr[3] <= 255) ||
+      (host = "." + host.replace(/^www./, ""));
+
+    var fullCookieValue =
+      escape(cookieValue) +
+      (null == expiry ? "" : ";expires=" + _date.toUTCString()) +
+      ";path=/;domain=" +
+      host;
+    document.cookie = cookieName + "=" + fullCookieValue;
+  };
+
+  var _getCookie = function(cookieName) {
+    var _,
+      cookieValue,
+      cookie = document.cookie.split(";");
+    for (_ = 0; _ < cookie.length; _++) {
+      key = cookie[_].substr(0, cookie[_].indexOf("="));
+      value = cookie[_].substr(cookie[_].indexOf("=") + 1);
+      if (key.replace(/^\s+|\s+$/g, "") == cookieName) {
+        return unescape(value);
+      }
+    }
+    return null;
+  };
+
+  var getCookieByName = function(cookieName) {
+    var cookieValue = _getCookie(cookieName);
+    if (!cookieValue) {
+      cookieValue = _generateCookie();
+    }
+    // extends cookie lifetime
+    _setCookie(cookieName, 365 * 2, cookieValue);
+    return cookieValue;
+  };
+
+  function getXhr() {
+    if (window.XMLHttpRequest)
+      try {
+        var xhr = new XMLHttpRequest();
+      } catch (t) {
+        xhr = new window.ActiveXObject("Microsoft.XMLHTTP");
+      }
+    xhr.withCredentials = true;
+    return xhr;
+  }
+
+  function _getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2)
+      return parts
+        .pop()
+        .split(";")
+        .shift();
+  }
+
+  var processEvent = function(trackingInfo) {
+    var referrer = getReferrer(),
+      clientId = getCookieByName("_trackity"),
+      ga = _getCookie("_ga"),
+      gid = _getCookie("_gid");
+
+    var xhr = getXhr();
+    var now = new Date();
+
+    trackingInfo["client_id"] = clientId;
+    trackingInfo["key"] = window._trackityid;
+    trackingInfo["referrer"] = referrer;
+    trackingInfo["platform"] = window.trackity_platform || "web";
+    trackingInfo["ga"] = ga || "";
+    trackingInfo["gid"] = gid || "";
+    trackingInfo["page"] = window.location.href;
+    trackingInfo["created_at"] = now.getTime();
+    trackingInfo["sanitized_at"] = now.toISOString();
+
+    var req = xhr.open("POST", PATH);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.setRequestHeader("Authorization", window._trackityid);
+
+    var finalPayload = Object.assign(
+      {},
+      window.trackity_common_data || {},
+      trackingInfo
+    );
+    req, xhr.send(JSON.stringify(finalPayload));
+  };
+
+  var checkPageReady = function(callback) {
+    if (document.readyState == "complete") {
+      callback();
+    } else {
+      setTimeout(function() {
+        checkPageReady(callback);
+      }, 50);
+    }
+  };
+
+  var run = function(trackingInfo) {
+    checkPageReady(function() {
+      processEvent(trackingInfo);
+    });
+  };
+
+  if (Array.isArray(trackity)) {
+    for (i = 0; i < trackity.length; i++) run(trackity[i]);
+  }
+
+  trackity = {
+    push: function(payload) {
+      run(payload);
+    },
+  };
+
+  run({ action_name: "payload" });
+})();

@@ -1,0 +1,75 @@
+<div class="breadcrumbs_area">
+    <div class="container">   
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="">home</a></li>
+                        <li>Danh sách yêu thích</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>         
+</div>
+<!--breadcrumbs area end-->
+
+<!--wishlist area start -->
+<div class="wishlist_page_bg">
+    <div class="container">
+        <div class="wishlist_area">   
+           <div class="wishlist_inner">
+                <form action="#"> 
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table_desc wishlist">
+                                <div class="cart_page table-responsive">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th class="product_remove">Xóa</th>
+                                                <th class="product_thumb">Ảnh</th>
+                                                <th class="product_name">Tên sản phẩm</th>
+                                                <th class="product-price">Giá bán</th>
+                                                <th class="product_quantity">Trạng thái</th>
+                                                <th class="product_total">Thêm vào giỏ hàng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of wishlistitems">
+                                               <td class="product_remove"><a (click)="deleteItem(item.maSanPham)">X</a></td>
+                                                <td class="product_thumb"><a href="shop/chi-tiet/{{item.link}}"><img src="assets/img/product/{{item.anh}}" alt=""></a></td>
+                                                <td class="product_name"><a href="shop/chi-tiet/{{item.link}}">{{item.tenSanPham}}</a></td>
+                                                <td class="product-price">{{item.giahientai.gia|currency:'VND'}}</td>
+                                                <td class="product_quantity" *ngIf="item.kho.soLuongCon!=0">Còn hàng</td>
+                                                <td class="product_quantity" *ngIf="item.kho.soLuongCon==0">Hết hàng</td>
+                                                <td class="product_total"><a (click)=addToCart(item)>Thêm vào giỏ hàng</a></td>
+
+
+                                            </tr>
+                                        </tbody>
+                                    </table>   
+                                </div>  
+
+                            </div>
+                         </div>
+                     </div>
+                </form>
+            </div> 
+            <div class="row">
+                <div class="col-12">
+                     <div class="wishlist_share">
+                        <h4>Share on:</h4>
+                        <ul>
+                            <li><a href="#"><i class="fa fa-rss"></i></a></li>           
+                            <li><a href="#"><i class="fa fa-vimeo"></i></a></li>           
+                            <li><a href="#"><i class="fa fa-tumblr"></i></a></li>           
+                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>        
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>        
+                        </ul>      
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>

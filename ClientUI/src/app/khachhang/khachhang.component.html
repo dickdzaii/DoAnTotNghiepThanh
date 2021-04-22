@@ -1,0 +1,53 @@
+
+<div class="breadcrumbs_area">
+    <div class="container">   
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="">home</a></li>
+                        <li>Khách hàng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>         
+</div>
+<!--breadcrumbs area end-->
+
+<!--shop  area start-->
+<div class="shop_area shop_reverse">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-12">
+               <!--sidebar widget start-->
+                <aside class="sidebar_widget">
+                    <div class="widget_list widget_categories">
+                        <h3><img *ngIf="acc[0].anh" src="assets/img/profile/{{acc[0].anh}}" style="width:60px;height:60px" alt="">
+                            <img *ngIf="!acc[0].anh" src="assets/img/profile/64572.png" style="width:60px;height:60px" alt=""> {{acc[0].hoTen}}</h3>
+                        <ul>
+                            <ng-container>
+                            <li class="widget_sub_categories"><a href="javascript:void(0)"><b>Tài khoản của tôi</b></a>
+                                <ul class="widget_dropdown_categories">
+                                    <li><a href="customer/profile">Hồ sơ</a></li>
+                                    <li><a href="customer/addresses">Địa chỉ</a></li>
+                                    <li><a href="customer/change-password">Đổi mật khẩu</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="customer/orders"><b>Đơn hàng</b></a>
+                        </ng-container>
+                            
+                        </ul>
+                    </div>
+            
+                </aside>
+                <!--sidebar widget end-->
+            </div>
+            <div class="col-lg-9 col-md-12">
+                
+                <!--shop banner area start-->
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
